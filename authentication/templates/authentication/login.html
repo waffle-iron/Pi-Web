@@ -1,0 +1,34 @@
+{% extends 'base_visitor.html' %}
+{% block login_active %}active{% endblock %}
+{% load static %}
+{% block stylesheets %}
+    <link href="{% static 'authentication/css/login.css' %}" rel="stylesheet">
+{% endblock %}
+{% block container %}
+    <div class="container">
+        <div class="login">
+        <h2>Login</h2>
+        <form method="post" action="{% url 'login' %}" role="form">
+            {% csrf_token %}
+            <div class="form-group{% if form.username.errors %} has-error{% endif %}">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" name="username">
+              {% for error in form.username.errors %}
+                <label class="control-label">{{ error }}</label>
+              {% endfor %}
+            </div>
+            <div class="form-group{% if form.password.errors %} has-error{% endif %}">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" name="password">
+              {% for error in form.password.errors %}
+                <label class="control-label">{{ error }}</label>
+              {% endfor %}
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-default">Login</button>
+              <a href="{% url 'signup' %}" class="btn btn-link">Sign up for Pi</a>
+            </div>
+          </form>
+    </div>
+    </div>
+{% endblock %}
